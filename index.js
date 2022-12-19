@@ -23,7 +23,7 @@ mongoose
     )
   )
   .catch((error) => console.log(error.message));
-app.use("/uploads", express.static(__dirname + "/uploads"));
+app.use(express.static(__dirname + "/uploads"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.get("/", (req, res) => {
