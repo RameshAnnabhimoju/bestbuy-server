@@ -7,13 +7,8 @@ import userRouter from "./routes/user.router.js";
 import orderRouter from "./routes/order.router.js";
 import cartRouter from "./routes/cart.router.js";
 import cors from "cors";
-import path from "path";
-import { fileURLToPath } from "url";
 dotenv.config();
 const app = express();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 app.use("/uploads", express.static("public/uploads/"));
 app.use(
   cors({
