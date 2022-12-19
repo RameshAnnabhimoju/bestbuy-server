@@ -12,7 +12,7 @@ const app = express();
 app.use("/uploads", express.static("public/uploads/"));
 app.use(
   cors({
-    origin: "https://bestbuy-client.vercel.app",
+    origin: ["https://bestbuy-client.vercel.app", "http://localhost:3000"],
   })
 );
 const PORT = process.env.PORT || 8081;
