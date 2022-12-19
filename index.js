@@ -11,8 +11,7 @@ dotenv.config();
 const app = express();
 app.use(
   cors({
-    origin: "https://bestbuy-client.vercel.app/",
-    allowedHeaders: "Access-Control-Allow-Origin",
+    origin: "https://bestbuy-client.vercel.app",
   })
 );
 app.use("/uploads", express.static("uploads/"));
