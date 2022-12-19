@@ -14,7 +14,7 @@ app.use(
     origin: "https://bestbuy-client.vercel.app",
   })
 );
-app.use("/uploads", express.static("uploads/"));
+app.use("/uploads", express.static("uploads"));
 const PORT = process.env.PORT || 8081;
 mongoose
   .connect(process.env.MONGO_URL)
