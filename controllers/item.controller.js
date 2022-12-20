@@ -102,21 +102,25 @@ export const getItemsByFilter = async (req, res) => {
   } = req.query;
   try {
     await items
-      .find({
-        title: title ? { $regex: title, $options: "i" } : "",
-        category,
-        brand: brand ? brand.split(",") : [],
-        ram: ram ? ram.split(",") : [],
-        storage: storage ? storage.split(",") : [],
-        battery: battery ? battery.split(",") : [],
-        camera: camera ? camera.split(",") : [],
-        chipset: chipset ? chipset.split(",") : [],
-        network: network ? network.split(",") : [],
-        os: os ? os.split(",") : [],
-        graphics: graphics ? graphics.split(",") : [],
-        processor: processor ? processor.split(",") : [],
-        type: type ? type.split(",") : [],
-      })
+      .aggregate([
+        {
+          $match: {
+            title: title ? { $regex: title, $options: "i" } : "",
+            category,
+            brand: brand ? brand.split(",") : [],
+            ram: ram ? ram.split(",") : [],
+            storage: storage ? storage.split(",") : [],
+            battery: battery ? battery.split(",") : [],
+            camera: camera ? camera.split(",") : [],
+            chipset: chipset ? chipset.split(",") : [],
+            network: network ? network.split(",") : [],
+            os: os ? os.split(",") : [],
+            graphics: graphics ? graphics.split(",") : [],
+            processor: processor ? processor.split(",") : [],
+            type: type ? type.split(",") : [],
+          },
+        },
+      ])
       .then((data) => res.json({ data, query: req.query }))
       .catch((error) => res.status(404).json({ msg: error, query: req.query }));
   } catch (error) {
