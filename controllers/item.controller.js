@@ -104,19 +104,19 @@ export const getItemsByFilter = async (req, res) => {
     await items
       .find({
         $and: [
-          { title: !title ? [] : { $regex: title, $options: "i" } },
+          { title: !title ? {} : { $regex: title, $options: "i" } },
           { category },
-          { brand: !brand ? [] : brand.split(",") },
-          { ram: !ram ? [] : ram.split(",") },
-          { storage: !storage ? [] : storage.split(",") },
-          { battery: !battery ? [] : battery.split(",") },
-          { camera: !camera ? [] : camera.split(",") },
-          { chipset: !chipset ? [] : chipset.split(",") },
-          { network: !network ? [] : network.split(",") },
-          { os: !os ? [] : os.split(",") },
-          { graphics: !graphics ? [] : graphics.split(",") },
-          { processor: !processor ? [] : processor.split(",") },
-          { type: !type ? [] : type.split(",") },
+          { brand: !brand ? {} : brand.split(",") },
+          { ram: !ram ? {} : ram.split(",") },
+          { storage: !storage ? {} : storage.split(",") },
+          { battery: !battery ? {} : battery.split(",") },
+          { camera: !camera ? {} : camera.split(",") },
+          { chipset: !chipset ? {} : chipset.split(",") },
+          { network: !network ? {} : network.split(",") },
+          { os: !os ? {} : os.split(",") },
+          { graphics: !graphics ? {} : graphics.split(",") },
+          { processor: !processor ? {} : processor.split(",") },
+          { type: !type ? {} : type.split(",") },
         ],
       })
       .then((data) => res.json({ data, query: req.query }))
