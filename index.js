@@ -9,8 +9,9 @@ import cartRouter from "./routes/cart.router.js";
 import cors from "cors";
 dotenv.config();
 const app = express();
-app.use(cors({ origin: "https://bestbuy-client.vercel.app/" }));
+// app.use(cors({ origin: "https://bestbuy-client.vercel.app/" }));
 // app.use(cors({ origin: "https://localhost:3000/" }));
+app.use(cors({ origin: "*" }));
 
 app.use("/uploads", express.static("public/uploads/"));
 const PORT = process.env.PORT || 8081;
