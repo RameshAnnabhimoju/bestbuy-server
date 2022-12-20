@@ -103,7 +103,7 @@ export const getItemsByFilter = async (req, res) => {
   try {
     await items
       .find({
-        title: { $regex: title, $options: "i" },
+        title: title ? { $regex: title, $options: "i" } : "",
         category,
         brand: brand ? brand.split(",") : [],
         ram: ram ? ram.split(",") : [],
