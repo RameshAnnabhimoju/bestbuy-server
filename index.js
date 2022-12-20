@@ -10,7 +10,6 @@ import cors from "cors";
 dotenv.config();
 const app = express();
 app.use(cors());
-app.use("/uploads", express.static("uploads"));
 const PORT = process.env.PORT || 8081;
 mongoose
   .connect(process.env.MONGO_URL)
@@ -22,6 +21,7 @@ mongoose
   .catch((error) => console.log(error.message));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
 app.get("/", (req, res) => {
   res.send("Welcome");
 });
