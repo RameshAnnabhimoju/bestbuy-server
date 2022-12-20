@@ -91,7 +91,7 @@ export const getItemsByFilter = async (req, res) => {
       query[key] = { $regex: req.query[key], $options: "i" };
     } else if (key === "category") {
       query[key] = req.query[key];
-    } else if (key) {
+    } else if (req.query[key]) {
       query[key] = { $in: req.query[key].split(",") };
     }
   }
