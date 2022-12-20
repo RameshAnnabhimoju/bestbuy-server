@@ -85,13 +85,40 @@ export const getAllItems = async (req, res) => {
 
 //gets all items by the given filter.
 export const getItemsByFilter = async (req, res) => {
+  const {
+    title,
+    category,
+    brand,
+    ram,
+    storage,
+    battery,
+    camera,
+    chipset,
+    network,
+    os,
+    graphics,
+    processor,
+    type,
+  } = req.query;
   try {
     await items
-      .find({ ...req.query })
+      .find({
+        title: { $regex: title, $options: "i" },
+        category,
+        brand: brand ? brand.split(",") : [],
+        ram: ram ? ram.split(",") : [],
+        storage: storage ? storage.split(",") : [],
+        battery: battery ? battery.split(",") : [],
+        camera: camera ? camera.split(",") : [],
+        chipset: chipset ? chipset.split(",") : [],
+        network: network ? network.split(",") : [],
+        os: os ? os.split(",") : [],
+        graphics: graphics ? graphics.split(",") : [],
+        processor: processor ? processor.split(",") : [],
+        type: type ? type.split(",") : [],
+      })
       .then((data) => res.json({ data, query: req.query }))
-      .catch((error) =>
-        res.status(404).json({ msgs: error, query: req.query })
-      );
+      .catch((error) => res.status(404).json({ msg: error, query: req.query }));
   } catch (error) {
     return res.status(500).json({ msg: error.message });
   }
