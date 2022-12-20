@@ -87,9 +87,9 @@ export const getAllItems = async (req, res) => {
 export const getItemsByFilter = async (req, res) => {
   const query = {};
   for (const key in req.query) {
-    if (key === title) {
+    if (key === "title") {
       query[key] = { $regex: req.query[key], $options: "i" };
-    } else if (key === category) {
+    } else if (key === "category") {
       query[key] = req.query[key];
     } else if (key) {
       query[key] = { $in: req.query[key].split(",") };
@@ -143,7 +143,7 @@ export const getItemsByFilter = async (req, res) => {
         })
       );
   } catch (error) {
-    return res.status(500).json({ msg: error.message });
+    return res.status(500).json({ msg: error, query });
   }
 };
 
