@@ -85,78 +85,61 @@ export const getAllItems = async (req, res) => {
 
 //gets all items by the given filter.
 export const getItemsByFilter = async (req, res) => {
-  const {
-    title,
-    category,
-    brand,
-    ram,
-    storage,
-    battery,
-    camera,
-    chipset,
-    network,
-    os,
-    graphics,
-    processor,
-    type,
-  } = req.query;
+  const query = {};
+  for (const key in req.query) {
+    if (key === title) {
+      query[key] = { $regex: req.query[key], $options: "i" };
+    } else if (key === category) {
+      query[key] = req.query[key];
+    } else if (key) {
+      query[key] = { $in: req.query[key].split(",") };
+    }
+  }
+  // const {
+  //   title,
+  //   category,
+  //   brand,
+  //   ram,
+  //   storage,
+  //   battery,
+  //   camera,
+  //   chipset,
+  //   network,
+  //   os,
+  //   graphics,
+  //   processor,
+  //   type,
+  // } = req.query;
   try {
     await items
       .find({
         $and: [
-          { category },
-          { title: { $regex: title, $options: "i" } },
-          { brand: !brand ? "" : brand.split(",") },
-          { ram: !ram ? "" : ram.split(",") },
-          { storage: !storage ? "" : storage.split(",") },
-          { battery: !battery ? "" : battery.split(",") },
-          { camera: !camera ? "" : camera.split(",") },
-          { chipset: !chipset ? "" : chipset.split(",") },
-          { network: !network ? "" : network.split(",") },
-          { os: !os ? "" : os.split(",") },
-          { graphics: !graphics ? "" : graphics.split(",") },
-          { processor: !processor ? "" : processor.split(",") },
-          { type: !type ? "" : type.split(",") },
+          query,
+          // { category },
+          // { title: { $regex: title, $options: "i" } },
+          // { brand: !brand ? "" : brand.split(",") },
+          // { ram: !ram ? "" : ram.split(",") },
+          // { storage: !storage ? "" : storage.split(",") },
+          // { battery: !battery ? "" : battery.split(",") },
+          // { camera: !camera ? "" : camera.split(",") },
+          // { chipset: !chipset ? "" : chipset.split(",") },
+          // { network: !network ? "" : network.split(",") },
+          // { os: !os ? "" : os.split(",") },
+          // { graphics: !graphics ? "" : graphics.split(",") },
+          // { processor: !processor ? "" : processor.split(",") },
+          // { type: !type ? "" : type.split(",") },
         ],
       })
       .then((data) =>
         res.json({
           data,
-          query: {
-            title: { $regex: title, $options: "i" },
-            category,
-            brand: !brand ? [] : brand.split(","),
-            ram: !ram ? [] : ram.split(","),
-            storage: !storage ? [] : storage.split(","),
-            battery: !battery ? [] : battery.split(","),
-            camera: !camera ? [] : camera.split(","),
-            chipset: !chipset ? [] : chipset.split(","),
-            network: !network ? [] : network.split(","),
-            os: !os ? [] : os.split(","),
-            graphics: !graphics ? [] : graphics.split(","),
-            processor: !processor ? [] : processor.split(","),
-            type: !type ? [] : type.split(","),
-          },
+          query,
         })
       )
       .catch((error) =>
         res.status(404).json({
           msg: error,
-          query: {
-            title: !title ? [] : { $regex: title, $options: "i" },
-            category,
-            brand: !brand ? [] : brand.split(","),
-            ram: !ram ? [] : ram.split(","),
-            storage: !storage ? [] : storage.split(","),
-            battery: !battery ? [] : battery.split(","),
-            camera: !camera ? [] : camera.split(","),
-            chipset: !chipset ? [] : chipset.split(","),
-            network: !network ? [] : network.split(","),
-            os: !os ? [] : os.split(","),
-            graphics: !graphics ? [] : graphics.split(","),
-            processor: !processor ? [] : processor.split(","),
-            type: !type ? [] : type.split(","),
-          },
+          query,
         })
       );
   } catch (error) {
