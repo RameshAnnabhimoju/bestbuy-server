@@ -9,11 +9,7 @@ import cartRouter from "./routes/cart.router.js";
 import cors from "cors";
 dotenv.config();
 const app = express();
-app.use(
-  cors({
-    origin: "https://bestbuy-client.vercel.app",
-  })
-);
+app.use(cors({ origin: "https://bestbuy-client.vercel.app" }));
 app.use("/uploads", express.static("public/uploads/"));
 const PORT = process.env.PORT || 8081;
 mongoose
