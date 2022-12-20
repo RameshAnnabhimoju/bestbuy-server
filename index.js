@@ -12,10 +12,11 @@ const app = express();
 // app.use(cors({ origin: "https://bestbuy-client.vercel.app/" }));
 // app.use(cors({ origin: "https://localhost:3000/" }));
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", [
-    "https://bestbuy-client.vercel.app/",
-    "http://localhost:3000/",
-  ]);
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    // "https://bestbuy-client.vercel.app/"
+    "http://localhost:3000/"
+  );
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
