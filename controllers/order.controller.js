@@ -27,7 +27,7 @@ export const updateStatus = async (req, res) => {
   const { orderStatus } = req.body;
   try {
     await order
-      .findByIdAndUpdate({ _id: id }, orderStatus)
+      .findByIdAndUpdate({ _id: id }, { orderStatus })
       .then((data) => res.json("Status updated successfully"))
       .catch((error) => res.status(400).json(error));
   } catch (error) {
