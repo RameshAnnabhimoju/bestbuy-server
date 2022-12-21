@@ -152,7 +152,7 @@ export const getItemBySeller = async (req, res) => {
   try {
     items
       .find({ seller: id })
-      .then((data) => res.json(data))
+      .then((data) => res.json({ data }))
       .catch((error) => res.status(404).json({ msg: error.message }));
   } catch (error) {
     return res.status(500).json({ msg: error.message });
