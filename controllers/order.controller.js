@@ -36,9 +36,16 @@ export const updateStatus = async (req, res) => {
 };
 
 export const getOrdersByFilters = async (req, res) => {
+  const query = {};
+  if (req.query._id) {
+    query._id = req.query._id;
+  }
+  if (req.query.orderStatus) {
+    query.orderStatus = req.query.orderStatus;
+  }
   try {
     await order
-      .find({ ...req.query })
+      .find(query)
       .then((data) => res.json(data))
       .catch((error) => res.status(404).json({ msgs: error }));
   } catch (error) {
