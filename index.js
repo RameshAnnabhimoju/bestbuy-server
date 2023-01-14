@@ -9,9 +9,8 @@ import cartRouter from "./routes/cart.router.js";
 import cors from "cors";
 dotenv.config();
 const app = express();
-app.use(
-  cors({ origin: "https://bestbuy-client.vercel.app", credentials: true })
-);
+app.use;
+cors({ origin: "https://bestbuy-client.vercel.app", credentials: true })();
 // app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 const PORT = process.env.PORT || 8081;
