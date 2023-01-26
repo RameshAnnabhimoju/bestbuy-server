@@ -2,7 +2,7 @@ import items from "../models/items.model.js";
 //creates new document in items collection, with given values in request body
 export const createItem = async (req, res) => {
   try {
-    console.log(req.file);
+    // console.log(req.file);
     await items
       .create({ ...req.body, image: req.file.path })
       .then((data) =>
@@ -10,7 +10,7 @@ export const createItem = async (req, res) => {
       )
       .catch((error) => res.status(400).json({ msg: error.message }));
   } catch (error) {
-    return res.status(500).json({ msg: error.message });
+    return res.status(500).json({ msg: error });
   }
 };
 
